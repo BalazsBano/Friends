@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { DB_PORT, DB_DATABASE, DB_HOST, DB_PASSWORD, DB_USERNAME } from "../configuration";
 import { Friend, Food } from "./entity";
+import { PostRefactoring1665328916663 } from "./migration";
 
 export const AppDataSource = new DataSource({
   migrationsTableName: "migrations",
@@ -15,5 +16,5 @@ export const AppDataSource = new DataSource({
 	multipleStatements: true,
 	entities: [ Friend, Food ],
 	subscribers: [],
-	migrations: [],
+	migrations: [ PostRefactoring1665328916663 ],
 })
