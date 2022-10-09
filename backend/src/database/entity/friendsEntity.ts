@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { Food } from "../../configuration";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Food } from "./foodEntity";
 import { RelationshipStatus } from "../enum"
 
 @Entity()
@@ -19,6 +19,10 @@ export class Friend {
 
   @Column()
     favFood: Food;
+
+  @OneToMany(() => Food, (food) => food.friend, {
+    cascade: true
+  })
 
   @Column({
     type: "enum",
