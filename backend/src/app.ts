@@ -1,10 +1,12 @@
 import express from "express";
 import { PORT } from "./configuration";
 import { AppDataSource } from "./database";
+import { rootRouter } from "./routes";
 
 const app = express();
 
 app.use(express.json());
+app.use(rootRouter);
 
 AppDataSource.initialize()
 	.then(() => {
