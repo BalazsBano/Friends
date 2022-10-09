@@ -1,0 +1,1 @@
+export { fetchAllFriends } from "./fetchAllFriends";
