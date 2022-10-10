@@ -7,7 +7,7 @@ export const friendsRouter = Router();
 friendsRouter.get('/list', async (req, res) => {
   try {
     const friends = await getAllFriends();
-    res.status(200).json({ friends });
+    res.status(200).json(friends);
   } catch (error) {
     res.status(500).send()
   }
