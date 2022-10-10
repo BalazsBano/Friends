@@ -11,9 +11,16 @@
     "@types/react": "^18.0.21",
     "@types/react-bootstrap": "^0.32.31",
     "@types/react-dom": "^18.0.6",
+    "@types/sass": "^1.43.1",
+    "@types/sass-loader": "^8.0.3",
+    "bootstrap": "^5.2.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "sass": "^1.55.0",
+    "sass-loader": "^10.3.1",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -21,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "scss": "node-sass --watch assets/scss -o assets/css"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node-sass": "^4.11.3",
+    "node-sass": "^7.0.3"
   }
 }
