@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable } from "typeorm";
-import { Food } from "./foodEntity";
 import { RelationshipStatus } from "../enum"
 
 @Entity()
@@ -17,11 +16,8 @@ export class Friend {
   @Column({ nullable: true })
     comment: string;
 
-  @ManyToOne(() => Food, (food) => food.friends)
-  @JoinTable({
-    name: 'food'
-  })
-    food: Food;
+  @Column()
+    favFood: string;
 
   @Column({
     type: "enum",
