@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
 	password: DB_PASSWORD,
 	database: DB_DATABASE,
 	synchronize: true,
-	logging: false,
+	logging: true,
 	multipleStatements: true,
 	entities: [ Friend, Food ],
 	subscribers: [],
