@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card, Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card } from "react-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
 import { API_URL } from "../../configuration";
 import { modifyFriend } from "../../api";
-
 import "./style.sass";
 
 export function ModifyPage() {
@@ -14,9 +13,21 @@ export function ModifyPage() {
   const [friendEmail, setFriendEmail] = useState("");
   const [friendComment, setFriendComment] = useState("");
   const [friendFavFood, setFriendFavFood] = useState("");
-  const [friendRelationshipStatus, setFriendRelationshipStatus] = useState(0);
-  const [selectedFriend, setSelectedFriend] = useState();
+  const [friendRelationshipStatus, setFriendRelationshipStatus] = useState(4);
   const [selectedRelationshipStatus, setSelectedRelationshipStatus] = useState("");
+	const [multiselectError, setMultiselectError] = useState("");
+  const relStatus = [{
+    id: 0,
+    name: 'Single'
+  },
+  {
+    id: 1,
+    name: 'In relationship'
+  },
+  {
+    id: 2,
+    name: 'Married'
+  }]
 
   useEffect(() => {
     fetch(`${API_URL}friends/list`)
@@ -38,6 +49,7 @@ export function ModifyPage() {
       setValidated(true);
       return
     }
+    multiselectSelect(friendRelationshipStatus)
     const friend = {
       id: friendId, 
       name: friendName,
@@ -46,7 +58,7 @@ export function ModifyPage() {
       favFood: friendFavFood,
       relationshipStatus: friendRelationshipStatus
     }
-    const modifiedFriend = await modifyFriend(friend)
+    const modifiedFriend = await modifyFriend(friend);
     cancellation()
   }
 
@@ -55,11 +67,11 @@ export function ModifyPage() {
     setFriendEmail("");
     setFriendComment("");
     setFriendFavFood("");
-    setFriendRelationshipStatus(0);
+    // setFriendRelationshipStatus(4);
   }
 
   async function selectingFriend(friend: any){
-    setSelectedFriend(friend[0])
+    // setSelectedFriend(friend[0])
     setFriendId(friend[0].id)
     setFriendName(friend[0].name);
     setFriendEmail(friend[0].email);
@@ -74,15 +86,27 @@ export function ModifyPage() {
   }
 
   function relationshipStatus(status: number){
-    setFriendRelationshipStatus(status)
+    setFriendRelationshipStatus(status);
     if(status === 0){
-      setSelectedRelationshipStatus("Single")
+      setSelectedRelationshipStatus("Single");
     } else if(status === 1) {
-      setSelectedRelationshipStatus("In relationship")
+      setSelectedRelationshipStatus("In relationship");
     } else {
-      setSelectedRelationshipStatus("Married")
+      setSelectedRelationshipStatus("Married");
     }
   }
+
+  function settingRelationshipStatus(event: React.FormEvent){
+    setFriendRelationshipStatus(Object.values(event)[0].id)
+  }
+
+	function multiselectSelect(status: any) {
+		if (status.length === undefined) {
+			setMultiselectError("You must select a status!");
+    } else {
+      setMultiselectError("");
+    }
+	}
 
   return (
     <div className="edit-friend-container mt-5 pt-5 d-flex justify-content-center">
@@ -154,13 +178,22 @@ export function ModifyPage() {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
-              <DropdownButton className="mb-3" id="dropdown-basic-button" title="Relationship status">
-                <Dropdown.Item onClick={() => {setFriendRelationshipStatus(0); relationshipStatus(0)}}>Single</Dropdown.Item>
-                <Dropdown.Item onClick={() => {setFriendRelationshipStatus(1); relationshipStatus(1)}}>In relationship</Dropdown.Item>
-                <Dropdown.Item onClick={() => {setFriendRelationshipStatus(2); relationshipStatus(2)}}>Married</Dropdown.Item>
-              </DropdownButton>
-              <Form.Control className="mb-3 shadow p-3 mb-5 bg-body rounded" placeholder={selectedRelationshipStatus} disabled />
-            </Form.Group>
+            <Multiselect
+              placeholder={selectedRelationshipStatus}
+              className={
+                multiselectError
+                  ? "multiselectError border border-danger rounded"
+                  : "multiselectWithoutError bg-white"
+              }
+              singleSelect
+              selectedValues={relationshipStatus}
+              displayValue="name"
+              options={relStatus}
+              onSelect={(e) => {settingRelationshipStatus(e); multiselectSelect(e)}}
+              onRemove={(e) => {multiselectSelect(e)}}
+            />
+              </Form.Group>
+              {multiselectError && <p className="text-danger text-center">{multiselectError}</p>}
           </Form>
           <Button type="submit" onClick={(e) => handleSubmit(e)}>
             Save
