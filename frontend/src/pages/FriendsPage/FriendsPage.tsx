@@ -48,7 +48,7 @@ export function FriendsPage() {
                     <Card.Text>Comment: {item.comment}</Card.Text>
                     <Card.Text>Favorite food: {item.favFood}</Card.Text>
                     <Card.Text>Relationship Status: {item.relationshipStatus}</Card.Text>
-                    <Button variant="outline-secondary" size="sm" type="button" onClick={() => {navigate("/modify"); console.log('test')}}>Edit</Button>
+                    <Button variant="outline-secondary" size="sm" type="button" onClick={() => navigate("/modify")}>Edit</Button>
                   </Stack>
                 </Card.Body>
               </Card>

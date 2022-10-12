@@ -21,3 +21,18 @@ export async function postNewFriend(friend: any){
     })
     .execute()
 }
+
+export async function putFriend(friend: any){
+  const putFriend = await AppDataSource
+  .createQueryBuilder()
+  .update(Friend)
+  .set({
+    name: friend.name,
+    email: friend.email,
+    comment: friend.comment,
+    relationshipStatus: friend.relationshipStatus,
+    favFood: friend.favFood
+  })
+  .where("id = :id", {id: friend.id})
+  .execute()
+}

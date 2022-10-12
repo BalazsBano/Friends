@@ -1,6 +1,5 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useState } from "react";
 import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card, Dropdown, DropdownButton } from "react-bootstrap";
-import { API_URL } from "../../configuration";
 import { createNewFriend } from "../../api";
 import "./style.sass";
 
@@ -36,8 +35,6 @@ export function NewFriendPage() {
     setFriendFavFood("");
     setFriendRelationshipStatus(0);
   }
-
-
 
   return (
     <div className="friends-container">
