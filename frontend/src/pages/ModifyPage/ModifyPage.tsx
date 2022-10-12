@@ -85,32 +85,32 @@ export function ModifyPage() {
   }
 
   return (
-    <div className="friends-container">
-      <Navbar fixed="top" bg="light" expand="sm" variant="light" className="navbar">
+    <div className="edit-friend-container mt-5 pt-5 d-flex justify-content-center">
+      <Navbar fixed="top" expand="sm" variant="light" className="navbar bg-light bg-gradient">
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="/">Friends</Nav.Link>
-            <Nav.Link href="new">New friend</Nav.Link>
+            <Nav.Link href="/" className="text-primary">Friends</Nav.Link>
+            <Nav.Link href="new" className="text-primary">New friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <h1>Modify</h1>
-      <Card className="mb-3" style={{ width: '20rem' }}>
+      <Card bg="light" className="mb-3" style={{ width: '20rem' }}>
         <Card.Body>
-        <Form validated={validated}>
+          <Card.Title className="mb-3">Edit friend</Card.Title>
+          <Form validated={validated}>
             <Form.Group>
               <Multiselect 
                 options={friends} 
-                className="mb-3" 
+                className="mb-3 shadow bg-body rounded" 
                 displayValue="name" 
                 placeholder="Select the friend" 
                 singleSelect
                 onSelect={(e: any) => selectingFriend(e)} />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Name">
                 <Form.Control
                   as="input"
@@ -121,7 +121,7 @@ export function ModifyPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Email">
                 <Form.Control
                   as="input"
@@ -132,7 +132,7 @@ export function ModifyPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Comment">
                 <Form.Control
                   as="input"
@@ -142,7 +142,7 @@ export function ModifyPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Favorite food">
                 <Form.Control
                   as="input"
@@ -159,7 +159,7 @@ export function ModifyPage() {
                 <Dropdown.Item onClick={() => {setFriendRelationshipStatus(1); relationshipStatus(1)}}>In relationship</Dropdown.Item>
                 <Dropdown.Item onClick={() => {setFriendRelationshipStatus(2); relationshipStatus(2)}}>Married</Dropdown.Item>
               </DropdownButton>
-              <Form.Control className="mb-3" placeholder={selectedRelationshipStatus} disabled />
+              <Form.Control className="mb-3 shadow p-3 mb-5 bg-body rounded" placeholder={selectedRelationshipStatus} disabled />
             </Form.Group>
           </Form>
           <Button type="submit" onClick={(e) => handleSubmit(e)}>

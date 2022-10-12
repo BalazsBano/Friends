@@ -21,17 +21,16 @@ export function FriendsPage() {
   friends?.map((item: any) => {
     allFriend.push(item)
   })
-  console.log(allFriend)
  
   return (
-    <div className="friends-container">
-      <Navbar fixed="top" bg="light" expand="sm" variant="light" className="navbar">
+    <div className="friends-container mt-5 pt-5 d-flex justify-content-center">
+      <Navbar fixed="top" expand="sm" variant="light" className="navbar bg-light bg-gradient">
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="/">Friends</Nav.Link>
-            <Nav.Link href="new">New friend</Nav.Link>
+            <Nav.Link href="new" className="text-primary">New friend</Nav.Link>
+            <Nav.Link href="modify" className="text-primary">Edit friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -48,7 +47,6 @@ export function FriendsPage() {
                     <Card.Text>Comment: {item.comment}</Card.Text>
                     <Card.Text>Favorite food: {item.favFood}</Card.Text>
                     <Card.Text>Relationship Status: {item.relationshipStatus}</Card.Text>
-                    <Button variant="outline-secondary" size="sm" type="button" onClick={() => navigate("/modify")}>Edit</Button>
                   </Stack>
                 </Card.Body>
               </Card>
