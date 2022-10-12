@@ -27,8 +27,8 @@ export function FriendsPage() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="new" className="text-primary">New friend</Nav.Link>
-            <Nav.Link href="modify" className="text-primary">Edit friend</Nav.Link>
+            <Nav.Link href="new">New friend</Nav.Link>
+            <Nav.Link href="modify">Edit friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -37,7 +37,7 @@ export function FriendsPage() {
       {allFriend.map((item: any, index: any) => {
         return (
           <div key={index}>
-              <Card className="mb-3" style={{ width: '20rem' }}>
+              <Card className="mb-3 shadow bg-body rounded" style={{ width: '20rem' }}>
                 <Card.Body>
                   <Stack gap={1}>
                     <Card.Header>{item.id}. {item.name}</Card.Header>

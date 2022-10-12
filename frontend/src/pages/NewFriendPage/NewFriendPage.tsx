@@ -71,8 +71,8 @@ export function NewFriendPage() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="/" className="text-primary">Friends</Nav.Link>
-            <Nav.Link href="modify" className="text-primary">Edit friend</Nav.Link>
+            <Nav.Link href="/">Friends</Nav.Link>
+            <Nav.Link href="modify">Edit friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>

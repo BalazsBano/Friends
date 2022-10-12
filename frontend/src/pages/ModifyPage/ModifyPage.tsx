@@ -115,8 +115,8 @@ export function ModifyPage() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="/" className="text-primary">Friends</Nav.Link>
-            <Nav.Link href="new" className="text-primary">New friend</Nav.Link>
+            <Nav.Link href="/">Friends</Nav.Link>
+            <Nav.Link href="new">New friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -182,8 +182,8 @@ export function ModifyPage() {
               placeholder={selectedRelationshipStatus}
               className={
                 multiselectError
-                  ? "multiselectError border border-danger rounded"
-                  : "multiselectWithoutError bg-white"
+                  ? "multiselectError border border-danger shadow bg-body rounded"
+                  : "multiselectWithoutError bg-white shadow bg-body rounded"
               }
               singleSelect
               selectedValues={relationshipStatus}
