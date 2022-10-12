@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card, Dropdown, DropdownButton } from "react-bootstrap";
+import Multiselect from "multiselect-react-dropdown";
 import { createNewFriend } from "../../api";
 import "./style.sass";
 
@@ -9,10 +10,24 @@ export function NewFriendPage() {
   const [friendEmail, setFriendEmail] = useState("");
   const [friendComment, setFriendComment] = useState("");
   const [friendFavFood, setFriendFavFood] = useState("");
-  const [friendRelationshipStatus, setFriendRelationshipStatus] = useState(0);
+  const [friendRelationshipStatus, setFriendRelationshipStatus] = useState(4);
+	const [multiselectError, setMultiselectError] = useState("");
+  const relStatus = [{
+    id: 0,
+    name: 'Single'
+  },
+  {
+    id: 1,
+    name: 'In relationship'
+  },
+  {
+    id: 2,
+    name: 'Married'
+  }]
 
   async function handleSubmit(event: React.FormEvent){
     event.preventDefault()
+    multiselectSelect(friendRelationshipStatus)
     if(!friendName || !friendEmail || !friendFavFood || !friendRelationshipStatus){
       setValidated(true);
       return
@@ -24,7 +39,7 @@ export function NewFriendPage() {
       favFood: friendFavFood,
       relationshipStatus: friendRelationshipStatus
     }
-    const createFriend = createNewFriend(friend)
+    const createFriend = createNewFriend(friend);
     cancellation()
   }
 
@@ -36,25 +51,39 @@ export function NewFriendPage() {
     setFriendRelationshipStatus(0);
   }
 
+  function settingRelationshipStatus(event: React.FormEvent){
+    setFriendRelationshipStatus(Object.values(event)[0].id)
+  }
+
+	function multiselectSelect(status: any) {
+		if (status.length === undefined) {
+      console.log("error")
+			setMultiselectError("You must select a status!");
+    } else {
+      console.log("done")
+      setMultiselectError("");
+    }
+	}
+
   return (
-    <div className="friends-container">
-      <Navbar fixed="top" bg="light" expand="sm" variant="light" className="navbar">
+    <div className="new-friends-container mt-5 pt-5 d-flex justify-content-center">
+      <Navbar fixed="top" expand="sm" variant="light" className="navbar bg-light bg-gradient">
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="/">Friends</Nav.Link>
-            <Nav.Link href="new">New friend</Nav.Link>
+            <Nav.Link href="/" className="text-primary">Friends</Nav.Link>
+            <Nav.Link href="modify" className="text-primary">Edit friend</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-    <Card bg="light">
+    <Card bg="light" className="mb-3" style={{ width: '20rem' }}>
       <Card.Body>
-        <Card.Title>New friend</Card.Title>
+        <Card.Title className="mb-3">New friend</Card.Title>
           <Form validated={validated}>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Name">
                 <Form.Control
                   as="input"
@@ -66,7 +95,7 @@ export function NewFriendPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Email">
                 <Form.Control
                   as="input"
@@ -77,7 +106,7 @@ export function NewFriendPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Comment">
                 <Form.Control
                   as="input"
@@ -87,7 +116,7 @@ export function NewFriendPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 shadow bg-body rounded">
               <FloatingLabel label="Favorite food">
                 <Form.Control
                   as="input"
@@ -98,13 +127,22 @@ export function NewFriendPage() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
-              <DropdownButton id="dropdown-basic-button" title="Relationship status">
-                <Dropdown.Item onClick={() => setFriendRelationshipStatus(0)}>Single</Dropdown.Item>
-                <Dropdown.Item onClick={() => setFriendRelationshipStatus(1)}>In relationship</Dropdown.Item>
-                <Dropdown.Item onClick={() => setFriendRelationshipStatus(2)}>Married</Dropdown.Item>
-              </DropdownButton>
+            <Form.Group  className="mb-3 shadow bg-body rounded">
+              <Multiselect
+              placeholder="Relationship status"
+                className={
+                  multiselectError
+                    ? "multiselectError border border-danger rounded"
+                    : "multiselectWithoutError"
+                }
+                singleSelect
+                displayValue="name"
+                options={relStatus}
+                onSelect={(e) => {settingRelationshipStatus(e); multiselectSelect(e)}}
+                onRemove={(e) => {multiselectSelect(e)}}
+              />
             </Form.Group>
+              {multiselectError && <p className="text-danger text-center">{multiselectError}</p>}
           </Form>
           <Button type="submit" onClick={(e) => handleSubmit(e)}>
             Save
