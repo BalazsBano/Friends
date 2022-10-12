@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card, Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, Container, Form, FloatingLabel, Nav, Navbar, Card } from "react-bootstrap";
 import Multiselect from "multiselect-react-dropdown";
 import { createNewFriend } from "../../api";
 import "./style.sass";
@@ -27,11 +27,11 @@ export function NewFriendPage() {
 
   async function handleSubmit(event: React.FormEvent){
     event.preventDefault()
-    multiselectSelect(friendRelationshipStatus)
     if(!friendName || !friendEmail || !friendFavFood || !friendRelationshipStatus){
       setValidated(true);
       return
     }
+    multiselectSelect(friendRelationshipStatus)
     const friend = {
       name: friendName,
       email: friendEmail,
@@ -56,11 +56,10 @@ export function NewFriendPage() {
   }
 
 	function multiselectSelect(status: any) {
+    console.log(status.length)
 		if (status.length === undefined) {
-      console.log("error")
 			setMultiselectError("You must select a status!");
     } else {
-      console.log("done")
       setMultiselectError("");
     }
 	}

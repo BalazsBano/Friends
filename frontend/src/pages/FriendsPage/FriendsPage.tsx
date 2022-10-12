@@ -1,12 +1,10 @@
-import React, { useEffect, useState, Component } from "react";
-import { Button, Container, Nav, Navbar, Card, Stack } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar, Card, Stack } from "react-bootstrap";
 import { API_URL } from "../../configuration";
-import { useNavigate } from "react-router-dom";
 import "./style.sass";
 
 export function FriendsPage() {
   const [friends, setFriends] = useState([] as any[]);
-	const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API_URL}friends/list`)
